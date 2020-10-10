@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using TriviaGameRestEFAPI.BLL.DataContract;
 using TriviaGameRestEFAPI.Data;
@@ -52,6 +54,38 @@ namespace TriviaGameRestEFAPI.BLL
                     }
 
                     return _genreResps;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            public static async Task UpdateGenre(Guid genreId,  string genreName)
+            {
+                try
+                {
+                    using TriviaGameDBContext _dbContext = DBContext;
+
+                    Genre _genre = await TriviaGameRestEFAPIDAL.GetGenreById(_dbContext, genreId);
+                    _genre.GenreName = genreName;
+
+                    EntityEntry _entityEntry = _dbContext.Update(_genre);
+                    await _dbContext.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            public static async Task JoinDB()
+            {
+                try
+                {
+                    using TriviaGameDBContext _dbContext = DBContext;
+
+                    List<Genre> _genres = await TriviaGameRestEFAPIDAL.JoinDB(_dbContext);
                 }
                 catch (Exception)
                 {

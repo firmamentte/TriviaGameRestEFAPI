@@ -30,23 +30,27 @@ namespace TriviaGameRestEFAPI.Controllers
         {
             try
             {
-                foreach (var genre in await TriviaGameRestEFAPIBLL.GenreHelper.GetGenres())
-                {
-                    GameResp _gameResp = await TriviaGameRestEFAPIBLL.GameHelper.CreateGame(genre.GenreName);
+                await TriviaGameRestEFAPIBLL.GenreHelper.JoinDB();
 
-                    foreach (var question in _gameResp.Questions)
-                    {
-                        await TriviaGameRestEFAPIBLL.GameHelper.AnswerQuestion(new AnswerQuestionReq()
-                        {
-                            GameId = _gameResp.GameId,
-                            QuestionId = question.QuestionId,
-                            ChoiceId = question.Choices[3].ChoiceId,
-                            AnswerDuration = 10
-                        });
-                    }
+                //foreach (var genre in await TriviaGameRestEFAPIBLL.GenreHelper.GetGenres())
+                //{
+                //    //await TriviaGameRestEFAPIBLL.GenreHelper.UpdateGenre(genre.GenreName);
 
-                    GameResultResp _gameResultResp = await TriviaGameRestEFAPIBLL.GameHelper.ViewGame(_gameResp.GameId);
-                }
+                //    GameResp _gameResp = await TriviaGameRestEFAPIBLL.GameHelper.CreateGame(genre.GenreName);
+
+                //    foreach (var question in _gameResp.Questions)
+                //    {
+                //        await TriviaGameRestEFAPIBLL.GameHelper.AnswerQuestion(new AnswerQuestionReq()
+                //        {
+                //            GameId = _gameResp.GameId,
+                //            QuestionId = question.QuestionId,
+                //            ChoiceId = question.Choices[3].ChoiceId,
+                //            AnswerDuration = 10
+                //        });
+                //    }
+
+                //    GameResultResp _gameResultResp = await TriviaGameRestEFAPIBLL.GameHelper.ViewGame(_gameResp.GameId);
+                //}
             }
             catch (Exception)
             {

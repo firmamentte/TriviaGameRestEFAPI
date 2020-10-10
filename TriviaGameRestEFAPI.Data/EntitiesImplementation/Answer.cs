@@ -50,10 +50,7 @@ namespace TriviaGameRestEFAPI.Data.Entities
         {
             get
             {
-                if (Choice != null)
-                    return Choice.ChoiceName;
-                else
-                    return null;
+                return Choice?.ChoiceName;
             }
         }
 
