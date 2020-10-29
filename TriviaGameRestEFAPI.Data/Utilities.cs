@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Net.Mail;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +15,48 @@ namespace TriviaGameRestEFAPI.Data
 {
     public static class Utilities
     {
+        #region Enum
+
+        [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field, AllowMultiple = false)]
+        private sealed class EnumDescriptionAttribute : Attribute
+        {
+            public string Description { get; }
+
+            public EnumDescriptionAttribute(string description) : base()
+            {
+                Description = description;
+            }
+        }
+
+        public static class EnumHelper
+        {
+            public enum InputValidationError
+            {
+                [EnumDescription("Input Validation Error")]
+                InputValidationError
+            }
+
+            public static string GetDescription(Enum value)
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+
+                string description = value.ToString();
+                FieldInfo fieldInfo = value.GetType().GetField(description);
+                EnumDescriptionAttribute[] attributes = (EnumDescriptionAttribute[]) fieldInfo.GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
+
+                if (attributes != null && attributes.Length > 0)
+                {
+                    description = attributes[0].Description;
+                }
+                return description;
+            }
+        }
+
+        #endregion
+
         public static class EmailHelper
         {
             public static bool IsEmailAddress(string emailAddress)

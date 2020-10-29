@@ -1,0 +1,2 @@
+Scaffold-DbContext -Connection Name=DatabasePath Microsoft.EntityFrameworkCore.SqlServer -o Entities
+Scaffold-DbContext -Connection Name=DatabasePath Microsoft.EntityFrameworkCore.SqlServer -o Entities -Force

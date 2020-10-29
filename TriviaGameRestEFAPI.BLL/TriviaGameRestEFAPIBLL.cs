@@ -239,7 +239,7 @@ namespace TriviaGameRestEFAPI.BLL
                         GameResp _gameResp = new GameResp()
                         {
                             GameId = game.GameId,
-                            CreationDate = game.CreationDate.ToString("dd-MMMM-yyyy hh:mm:ss tt"),
+                            CreationDate = game.CreationDate,
                             GenreName = game.GenreName
                         };
 

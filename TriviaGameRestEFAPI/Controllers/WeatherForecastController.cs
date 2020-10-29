@@ -10,7 +10,7 @@ using TriviaGameRestEFAPI.BLL.DataContract;
 namespace TriviaGameRestEFAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("weatherforecast")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -26,11 +26,11 @@ namespace TriviaGameRestEFAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> Get()
+        public IEnumerable<WeatherForecast> Get()
         {
             try
             {
-                await TriviaGameRestEFAPIBLL.GenreHelper.JoinDB();
+                //await TriviaGameRestEFAPIBLL.GenreHelper.JoinDB();
 
                 //foreach (var genre in await TriviaGameRestEFAPIBLL.GenreHelper.GetGenres())
                 //{
