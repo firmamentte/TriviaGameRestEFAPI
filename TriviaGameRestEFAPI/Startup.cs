@@ -82,12 +82,12 @@ namespace TriviaGameRestEFAPI
 
 
 
-            app.UseGraphQLAltair();
-            //app.UseGraphQLAltair(new GraphQLAltairOptions()
-            //{
-            //    Path = new PathString("/myaltair"),
-            //    GraphQLEndPoint = new PathString("/graphql")
-            //});
+            //app.UseGraphQLAltair();
+            app.UseGraphQLAltair(new GraphQLAltairOptions()
+            {
+                Path = new PathString("/myaltair"),
+                GraphQLEndPoint = new PathString("/graphql")
+            });
 
             //app.UseGraphiQl("/graphiql", "/graphql");
             //app.UseGraphiQLServer(new GraphiQLOptions
@@ -95,14 +95,14 @@ namespace TriviaGameRestEFAPI
             //    Path = "/mygraphiql",
             //    GraphQLEndPoint = "/graphql"
             //});
-            app.UseGraphiQLServer();
+            //app.UseGraphiQLServer();
 
             //app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
             //{
             //    Path = new PathString("/myplayground"),
             //    GraphQLEndPoint=new PathString("/graphql")
             //});
-            app.UseGraphQLPlayground();
+            //app.UseGraphQLPlayground();
 
 
 
