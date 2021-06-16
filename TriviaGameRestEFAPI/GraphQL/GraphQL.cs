@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Threading.Tasks;
 using GraphQL;
+using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,8 @@ namespace TriviaGameRestEFAPI.GraphQL.Types
         }
 
         //[HttpPost]
-        public async Task<IActionResult> Post([FromBody] JsonElement query)
+        public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
         {
-            var _query = JsonConvert.DeserializeObject<GraphQLQuery>(query.ToString());
-
             var _result = await new DocumentExecuter().ExecuteAsync(options =>
             {
                 options.Schema = new Schema
@@ -31,9 +30,9 @@ namespace TriviaGameRestEFAPI.GraphQL.Types
                     Query = new Query(),
                     Mutation = new Mutation()
                 };
-                options.Query = _query.Query;
-                options.OperationName = _query.OperationName;
-                options.Inputs = _query.Inputs;
+                options.Query = query.Query;
+                options.OperationName = query.OperationName;
+                options.Inputs = query.Variables.ToInputs();
                 options.UserContext = new GraphQLUserContext()
                 {
                     //{"AccessToken",ControllerHelper.GetAccessToken(Request) },
@@ -48,11 +47,12 @@ namespace TriviaGameRestEFAPI.GraphQL.Types
             });
 
             if (_result.Errors?.Count > 0)
-            {
                 return BadRequest(new ApiErrorResp(_result.Errors));
-            }
 
-            return Ok(_result);
+            HttpContext.Response.ContentType = "application/json";
+            await new DocumentWriter().WriteAsync(HttpContext.Response.Body, _result);
+
+            return Ok();
         }
     }
 }

@@ -19,10 +19,10 @@ namespace TriviaGameRestEFAPI
 {
     public class Startup
     {
-        readonly List<string> _origins = new List<string>()
-        {
-            "*"
-        };
+        //readonly List<string> _origins = new List<string>()
+        //{
+        //    "*"
+        //};
 
         public Startup(IConfiguration configuration)
         {
@@ -82,10 +82,10 @@ namespace TriviaGameRestEFAPI
 
 
 
-            //app.UseGraphQLAltair();
-            app.UseGraphQLAltair(new GraphQLAltairOptions()
+            app.UseGraphQLAltair();
+            app.UseGraphQLAltair(new AltairOptions()
             {
-                Path = new PathString("/myaltair"),
+                //Path = new PathString("/myaltair"),
                 GraphQLEndPoint = new PathString("/graphql")
             });
 
@@ -97,11 +97,11 @@ namespace TriviaGameRestEFAPI
             //});
             //app.UseGraphiQLServer();
 
-            //app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
-            //{
-            //    Path = new PathString("/myplayground"),
-            //    GraphQLEndPoint=new PathString("/graphql")
-            //});
+            app.UseGraphQLPlayground(new PlaygroundOptions
+            {
+                //Path = new PathString("/myplayground"),
+                GraphQLEndPoint = new PathString("/graphql")
+            });
             //app.UseGraphQLPlayground();
 
 

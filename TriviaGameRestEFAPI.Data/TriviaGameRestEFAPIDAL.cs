@@ -50,7 +50,7 @@ namespace TriviaGameRestEFAPI.Data
             {
                 return await dbContext.Genre.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -112,7 +112,7 @@ namespace TriviaGameRestEFAPI.Data
                               where answer.Game == _game &&
                                     answer.Question == _question
                               select answer).
-                              CountAsync() > 0;
+                              AnyAsync();
             }
             catch (Exception)
             {

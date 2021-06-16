@@ -26,9 +26,9 @@ namespace TriviaGameRestEFAPI.BLL
             {
                 if (configuration != null)
                 {
-                    if (string.IsNullOrWhiteSpace(Utilities.DatabaseHelper.ConnectionString))
+                    if (string.IsNullOrWhiteSpace(TriviaGameRestEFAPI.Data.Utilities.DatabaseHelper.ConnectionString))
                     {
-                        Utilities.DatabaseHelper.ConnectionString = configuration.GetConnectionString("DatabasePath");
+                        TriviaGameRestEFAPI.Data.Utilities.DatabaseHelper.ConnectionString = configuration.GetConnectionString("DatabasePath");
                     }
                 }
             }
@@ -327,7 +327,7 @@ namespace TriviaGameRestEFAPI.BLL
                         {
                             GameId = game.GameId,
                             GenreName = game.GenreName,
-                            CreationDate = game.CreationDate.ToString("dd-MMMM-yyyy hh:mm:ss tt"),
+                            CreationDate = game.CreationDate,
                             TotalScore = game.TotalScore
                         };
 

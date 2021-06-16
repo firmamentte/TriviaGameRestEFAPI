@@ -25,7 +25,7 @@ namespace TriviaGameRestEFAPI.Data.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Utilities.DatabaseHelper.ConnectionString);
+                optionsBuilder.UseSqlServer(TriviaGameRestEFAPI.Data.Utilities.DatabaseHelper.ConnectionString);
                 optionsBuilder.UseLazyLoadingProxies(true);
             }
         }
